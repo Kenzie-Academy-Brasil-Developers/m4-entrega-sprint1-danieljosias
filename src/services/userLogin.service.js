@@ -15,7 +15,7 @@ const userLoginService = (email, password) => {
     return "Email ou senha inválidos";
     }
 
-    const token = jwt.sign({ email: email }, "SECRET_KEY", { expiresIn: "24h" });
+    const token = jwt.sign({ email: email, id: user.id, password: user.password }, "SECRET_KEY", { expiresIn: "24h" });
 
     return token;
 };

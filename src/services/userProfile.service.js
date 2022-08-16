@@ -1,18 +1,22 @@
 import bcrypt from 'bcryptjs';
-import users from '../database'
+import database from '../database'
 
-const userProfileService = (email) => {
-  const isUser = users.find(user=> user.email === email)
+const userProfileService = async (email) => {
+  const res = await database.query('SELECT * FROM users WHERE email = $1',[email])
+  const {id,name,password,isadm} = res.rows[0]
 
-  const actualUser = {
-    name: isUser.name,
-    email: isUser.email,
-    id: isUser.id,
-    password: isUser.password,
-    isAdm: isUser.isAdm
+  if(res.rows.length === 0) {
+    return "User not found"
+  }
+
+  const isUser = {
+    id: id,
+    name: name,
+    password: password,
+    isadm: isadm
   }
   
-  return actualUser
+  return isUser
 }
 
 export default userProfileService

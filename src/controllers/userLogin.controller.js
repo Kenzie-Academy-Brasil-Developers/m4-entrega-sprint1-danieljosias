@@ -1,11 +1,18 @@
 import userLoginService from "../services/userLogin.service";
 
-    const userLoginController = (request, response) => {
+    const userLoginController = async (request, response) => {
         const { email, password } = request.body;
 
-        const userLogin = userLoginService(email, password);
+        try {
+            const userLogin = await userLoginService(email, password);
 
-        return response.json(userLogin);
+            return response.json(userLogin);
+        } catch (error) {
+            return response.status(400).json({
+                message: error.message
+            })
+        }
+        
     };
 
 export default userLoginController;

@@ -1,13 +1,17 @@
+import database from "../database/index";
 import users from "../database";
 
-const verifyIsAdm = (request,response,next) =>{
+const verifyIsAdm = async (request,response,next) =>{
     const {userId} = request.body
-    const user = users.find((element) => element.id === userId);
+    try {
+        const res = await database.query(`SELECT * FROM users WHERE id = $1`,[userId])
 
-    if(user.isAdm){
-        next()
-    }else{
-        response.status(401).json({message: 'Unauthorized'})
+        if(res.rows.length > 0){
+            next()
+        }
+
+    } catch (error) {
+        return response.status(401).json({message: 'Unauthorized'})
     }
 }
 

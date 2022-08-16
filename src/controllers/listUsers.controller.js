@@ -1,9 +1,9 @@
 import listUsersService from "../services/listUsers.service"
 
-  const listUsersController = (request, response) => {
+  const listUsersController = async (request, response) => {
     
     try{
-      const users = listUsersService()
+      const users = await listUsersService()
       return response.status(200).json(users)
       
     }catch(error){

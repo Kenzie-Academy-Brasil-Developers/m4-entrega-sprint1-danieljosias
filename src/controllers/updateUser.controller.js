@@ -1,12 +1,17 @@
+import database from "../database"
 import updateUserService from "../services/updateUser.service"
 
-  const updateUserController = (request, response) => {
+  const updateUserController = async (request, response) => {
     const { id } = request.params
     const { name, email } = request.body
 
-    const updatedUser = updateUserService(id, name, email)
-
-    return response.json(updatedUser)
+    try {
+      const updatedUser = await updateUserService(id, name, email)
+      return response.json(updatedUser)
+      
+    } catch (error) {
+      return response.status(400).json(error.message)
+    }
   }
 
 export default updateUserController

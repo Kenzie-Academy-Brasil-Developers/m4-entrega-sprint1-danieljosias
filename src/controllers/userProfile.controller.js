@@ -1,12 +1,11 @@
 import userProfileService from "../services/userProfile.service";
 
-  const userProfileController = (request, response) => {
-    try{
-      const users = userProfileService(request.body.email,request.body.password)
+  const userProfileController = async (request, response) => {
+    const { email } = request.body
 
-      if(users){
-        return response.status(200).json(users)
-      }
+    try{
+      const users = await userProfileService(email)
+      return response.json(users)
       
     }catch(error){
       if(error){

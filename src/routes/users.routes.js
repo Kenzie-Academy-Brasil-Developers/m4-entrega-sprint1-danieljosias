@@ -11,10 +11,9 @@ import verifyEmailAvailabilityMiddleware from "../middlewares/verifyEmailAvailab
 import verifyAuthTokenMiddleware from "../middlewares/verifyAuthToken.middleware";
 import verifyIsAdm from "../middlewares/verifyIsAdm.middleware";
 
-
 const router = Router()
 
-router.post("", verifyEmailAvailabilityMiddleware, createUserController);
+router.post("", /* verifyEmailAvailabilityMiddleware, */ createUserController);
 router.patch("/:id", verifyAuthTokenMiddleware, updateUserController);
 router.delete("/:id", verifyAuthTokenMiddleware, deleteUserController);
 router.get("", verifyAuthTokenMiddleware, verifyIsAdm, listUsersController)

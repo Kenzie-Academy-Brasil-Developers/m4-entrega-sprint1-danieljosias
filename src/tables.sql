@@ -1,0 +1,9 @@
+CREATE DATABASE users_db;
+
+CREATE TABLE IF NOT EXISTS users(
+	id BIGSERIAL PRIMARY KEY,
+  	email VARCHAR(128) UNIQUE,
+  	name VARCHAR(256),
+  	password VARCHAR(128),
+  	isAdm BOOL
+);

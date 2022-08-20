@@ -16,6 +16,7 @@ import jwt from "jsonwebtoken";
       request.body.userId = decoded.id
       request.body.email = decoded.email
       request.body.password = decoded.password
+      request.body.isadm = decoded.isadm
       next();
     });
   };

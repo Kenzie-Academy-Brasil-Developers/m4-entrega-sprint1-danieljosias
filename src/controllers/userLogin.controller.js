@@ -5,8 +5,11 @@ import userLoginService from "../services/userLogin.service";
 
         try {
             const userLogin = await userLoginService(email, password);
-
-            return response.json(userLogin);
+            if(userLogin.message === "Wrong email/password"){
+                return response.status(401).json(userLogin);
+            }else{
+                return response.status(200).json(userLogin);
+            }
         } catch (error) {
             return response.status(400).json({
                 message: error.message

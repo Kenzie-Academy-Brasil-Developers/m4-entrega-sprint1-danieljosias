@@ -5,7 +5,7 @@ import createUserService from "../services/createUser.services";
 
     try {
       const user = await createUserService(email, name, password, isAdm);
-      return response.json(user);
+      return response.status(201).json(user);
       
     } catch (error) {
         return response.status(400).json({

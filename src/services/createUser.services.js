@@ -3,7 +3,9 @@ import database from '../database';
 import * as bcrypt from 'bcryptjs'
 
 const createUserService = async (email,name,password,isAdm) => {
-    /* const date = new Date() */
+    /* const date = new Date()
+    let createdOn = date
+    let updatedOn = date */
 
    /*  const newUser = {
         email,
@@ -31,11 +33,13 @@ const createUserService = async (email,name,password,isAdm) => {
             "INSERT INTO users(email,name,password,isAdm) VALUES($1,$2,$3,$4) RETURNING *",
             [email,name,hashedPassword,isAdm]
         )
-
+        
         return res.rows[0]
 
     } catch (error) {
-        throw new Error(error)
+        if(error instanceof Error){
+           throw new Error(JSON.stringify("E-mail already registered"))
+        }
     }
     
 }

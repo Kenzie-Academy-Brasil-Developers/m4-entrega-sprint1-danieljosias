@@ -1,13 +1,17 @@
 import database from "../database/index";
-import users from "../database";
 
 const verifyIsAdm = async (request,response,next) =>{
-    const {userId} = request.body
-    try {
-        const res = await database.query(`SELECT * FROM users WHERE id = $1`,[userId])
+    //body da requisição(insomnia)(atual) 
+    const { userId } = request.body
 
-        if(res.rows.length > 0){
+    try {
+        //banco de dados(beekeper)(antiga)
+        const users = await database.query(`SELECT users.isadm FROM users WHERE id = $1`,[userId]) 
+
+        if(users.rows[0].isadm === true){
             next()
+        }else{
+            return response.status(401).json({message: 'Unauthorized'})
         }
 
     } catch (error) {

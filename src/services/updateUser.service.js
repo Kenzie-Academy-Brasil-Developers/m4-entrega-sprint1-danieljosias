@@ -1,25 +1,18 @@
 import database from "../database"
-import users from "../database"
 
-  const updateUserService =  async(id, name, email) => {
+  const updateUserService =  async(name,email,id,userId) => {
     try {
-      const res = await database.query('UPDATE users SET name = $1, email = $2 WHERE id = $3 RETURNING *',[name,email,id])
-
-      /* const userUpdated = {
-        id,
-        name,
-        email
+      if(userId !== id){
+        return {message: "Missing admin permissions"}
       }
-
-      const userIndex = users.findIndex(element => element.id === id) */
+      
+      const res = await database.query('UPDATE users SET name = $1, email = $2 WHERE id = $3 RETURNING *',[name,email,id])
 
       if(res.rows.length === 0) {
         return "User not found"
       }
 
-      /* users[userIndex] = { ...users[userIndex], ...userUpdated }; */
-
-      return {message: 'User updated', user: res.rows[0]} /* users[userIndex] */
+      return res.rows[0]
 
     } catch (error) {
       throw new Error(error)

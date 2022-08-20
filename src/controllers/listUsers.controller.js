@@ -4,7 +4,9 @@ import listUsersService from "../services/listUsers.service"
     
     try{
       const users = await listUsersService()
-      return response.status(200).json(users)
+      return response.status(200).json({
+        users: users
+    })
       
     }catch(error){
       if(error){
